@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/img/favico.png">
+
+    <!--Título web-->
+    <title>Marvel</title>
+
+    <!--Css de Bootstrap 5.1.3-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!--Css-->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!--Inicio Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+        <div class="container-fluid">
+
+            <!--Logo-->
+            <a class="navbar-brand ms-3" href="index.html">
+                <img src="assets/img/marvel.png" alt="Logo" id="Logo" class="mw-100">
+            </a>
+
+        </div>
+
+    </nav>
+    <!--Fin Navbar-->
+
+
+    <!--Inicio main section-->
+    <main id="Principal">
+
+        <!--Inicio Hero section-->
+        <section id="Hero" class="container-fluid mx-auto row justify-content-center text-center">
+
+            <!--Imagen logo-->
+            <img class="col-12 mb-2" src="assets/img/marvel.png" alt="Img_hero">
+
+            <!--Título-->
+            <h1>Encuentra tu personaje favorito</h1>
+
+        </section>
+        <!--Fin Hero section-->
+
+
+        <!--Inicio Formulario section-->
+        <section id="Formulario" class="container mt-3">
+
+            <!--Inicio form-->
+            <form class="row justify-content-center">
+
+                <div class="col-10 col-md-4 text-center">
+
+                    <!--Nombre del personaje-->
+                    <label for="exampleInputEmail1" class="form-label">Ingrese nombre del personaje</label>
+                    <input type="text" class="form-control" id="InputHeroe" autocomplete="off" required>
+                    <div class="form-text text-white">Puede ingresar alguna letra con la que empiece el nombre</div>
+
+                    <!--Botón-->
+                    <button type="submit" class="btn btn-outline-light mt-3 px-5">Buscar</button>
+                </div>
+
+            </form>
+            <!--Fin form-->
+
+        </section>
+        <!--Fin Formulario section-->
+
+    </main>
+    <!--Fin main section-->
+
+
+    <!--Inicio SuperHero_cards section-->
+    <section id="SuperHero_cards" class="container-fluid row mx-auto">
+    </section>
+    <!--Fin SuperHero_cards section-->
+
+
+    <!--Inicio SuperHero section-->
+    <section id="SuperHero" class="container">
+    </section>
+    <!--Fin SuperHero section-->
+
+
+    <!--Inicio Footer section-->
+    <footer id="Footer" class="bg-dark d-flex justify-content-center align-items-center">
+
+        <!--Link marvel-->
+        <a href="https://www.marvel.com/" class="text-decoration-none" target="_blank">
+            <h5>&copy;2021 MARVEL</h5>
+        </a>
+
+    </footer>
+    <!--Fin Footer section-->
+
+
+    <!--Inicio modal-->
+    <div class="modal fade" id="Modal" role="dialog" aria-hidden="true" aria-labelledby="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <!--Inicio contenido modal-->
+            <div class="modal-content bg-dark">
+
+                <!--Header modal-->
+                <div class="modal-header">
+
+                    <!--Título modal-->
+                    <h5 class="modal-title fw-bold fs-2">Error!</h5>
+
+                    <!--Botón cerrar-->
+                    <button type="button" class="btn text-white" data-bs-dismiss="modal" aria-label="Close">
+                        X
+                    </button>
+
+                </div>
+
+                <!--Body modal-->
+                <div class="modal-body text-center">
+
+                    <!--Imágen modal-->
+                    <img class="img-fluid mb-4" src="assets/img/error.png" alt="Img_error">
+
+                    <!--Párrafo modal-->
+                    <h5>No se encuentran coincidencias con los datos ingresados.</h5>
+
+                </div>
+
+            </div>
+            <!--Fin contenido modal-->
+
+        </div>
+    </div>
+    <!--Fin modal-->
+
+
+
+    <!--Jquery 3.6.0-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <!--Popper 2.10.2-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+
+    <!--Bootstrap JS 5.1.3-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+
+    <!--Canvas JS 3.4.9-->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    <!--Archivo JS-->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
