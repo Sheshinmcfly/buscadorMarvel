@@ -1,0 +1,195 @@
+/* ── Variables de tema ── */
+:root {
+  --primary:     #B7000D;
+  --primary-dark:#7a0009;
+  --accent:      #e8000f;
+  --bg:          #1a0003;
+  --card-bg:     #2a0005;
+  --navbar-bg:   #0d0001;
+  --text:        #f5f5f5;
+  --badge-good:  #28a745;
+  --badge-bad:   #dc3545;
+  --badge-neutral: #6c757d;
+}
+
+.theme-dc {
+  --primary:     #1a53a0;
+  --primary-dark:#0d3370;
+  --accent:      #2a6dd9;
+  --bg:          #000d1a;
+  --card-bg:     #001229;
+  --navbar-bg:   #00080f;
+  --text:        #f0f4ff;
+}
+
+/* ── Base ── */
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  background-color: var(--bg);
+  transition: background-color 0.4s ease;
+}
+
+/* ── Navbar ── */
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 2px solid var(--primary);
+  transition: border-color 0.4s ease;
+}
+
+.logo-text { color: var(--accent) !important; letter-spacing: 1px; }
+
+/* ── Switch ── */
+.theme-switch {
+  width: 3rem !important;
+  height: 1.5rem !important;
+  cursor: pointer;
+  background-color: var(--primary-dark) !important;
+  border-color: var(--primary) !important;
+}
+.theme-switch:checked {
+  background-color: var(--accent) !important;
+}
+
+/* ── Hero section ── */
+.hero-section {
+  padding: 7rem 1rem 3rem;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.publisher-badge .badge {
+  background-color: var(--primary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  transition: background-color 0.4s ease;
+}
+
+/* ── Spinner ── */
+.spinner-hero {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--primary);
+}
+
+/* ── Footer ── */
+footer {
+  background-color: var(--navbar-bg);
+  border-top: 1px solid var(--primary);
+  color: var(--text);
+  transition: border-color 0.4s ease;
+}
+
+/* ── Tabs ── */
+.tabs-bar {
+  background-color: var(--navbar-bg);
+  border-bottom: 2px solid var(--primary);
+  position: sticky;
+  top: 56px;
+  z-index: 100;
+  transition: border-color 0.4s;
+}
+
+.nav-tabs-custom {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.25rem;
+}
+
+.nav-btn-custom {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.nav-btn-custom:hover { color: rgba(255,255,255,0.85); }
+.nav-btn-custom.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content-area { min-height: 60vh; }
+
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tab-pane {
+  animation: tabFadeIn 0.25s ease both;
+}
+
+.fav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.3rem;
+  margin-left: 0.35rem;
+  line-height: 1;
+}
+
+/* ── Logos ── */
+.nav-logo {
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: opacity 0.3s;
+}
+
+.switch-logo {
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.logo-inactive { opacity: 0.25; }
+
+.hero-logo {
+  height: 70px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: opacity 0.4s;
+}
+
+.footer-logo {
+  height: 18px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }

@@ -1,0 +1,69 @@
+<div class="explore-header mb-4">
+  <h5 class="section-header mb-3">
+    <i class="bi bi-grid-3x3-gap-fill me-2"></i>Explorar — {{ publisher }}
+    <span class="total-badge ms-2">{{ filtered().length }}</span>
+  </h5>
+
+  <!-- Filtros -->
+  <div class="filters-row">
+    <div class="filter-group">
+      @for (a of alignments; track a.value) {
+        <button class="filter-chip" [class.active]="alignment() === a.value"
+                (click)="setAlignment(a.value)">{{ a.label }}</button>
+      }
+    </div>
+
+    <div class="sort-group">
+      <i class="bi bi-sort-down me-1 opacity-50"></i>
+      <select class="sort-select" [ngModel]="sortBy()" (ngModelChange)="setSortBy($event)">
+        @for (opt of sortOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- Grid -->
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-3 mb-4">
+  @if (loading()) {
+    @for (s of skeletons; track $index) {
+      <div class="col"><app-skeleton-card /></div>
+    }
+  }
+  @for (char of paged(); track char.id) {
+    <div class="col">
+      <div class="hero-card" (click)="selectCharacter.emit(char)">
+        <div class="hero-img-wrapper">
+          <img [src]="char.images.md" [alt]="char.name" class="hero-img" (error)="onImgError($event)">
+          <div class="img-placeholder">
+            <span class="initials">{{ initials(char.name) }}</span>
+          </div>
+          <div class="hero-overlay"><i class="bi bi-eye-fill fs-4"></i></div>
+        </div>
+        <div class="hero-info px-2 py-2">
+          <p class="hero-name mb-1">{{ char.name }}</p>
+          <span class="badge alignment-badge"
+                [class.bg-success]="char.biography.alignment==='good'"
+                [class.bg-danger]="char.biography.alignment==='bad'"
+                [class.bg-secondary]="char.biography.alignment==='neutral'">
+            {{ char.biography.alignment === 'good' ? 'Héroe' : char.biography.alignment === 'bad' ? 'Villano' : 'Neutral' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Paginación -->
+@if (totalPages() > 1) {
+  <div class="pagination-row d-flex align-items-center justify-content-center gap-3">
+    <button class="page-btn" [disabled]="page() === 0" (click)="prevPage()">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    <span class="page-info">{{ page() + 1 }} / {{ totalPages() }}</span>
+    <button class="page-btn" [disabled]="page() === totalPages() - 1" (click)="nextPage()">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+}

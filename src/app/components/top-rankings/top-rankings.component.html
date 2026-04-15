@@ -1,0 +1,55 @@
+<h5 class="section-header mb-4">
+  <i class="bi bi-trophy-fill me-2"></i>Top 5 por estadística — {{ publisher }}
+</h5>
+
+<div class="rankings-grid">
+  @if (loading()) {
+    @for (stat of statDefs; track stat.key) {
+      <div class="ranking-card skeleton-card-ranking">
+        <div class="ranking-header">
+          <i class="bi {{ stat.icon }} me-2"></i>{{ stat.label }}
+        </div>
+        <div class="ranking-list">
+          @for (row of skeletonRows; track row) {
+            <div class="ranking-row skeleton-row">
+              <span class="skeleton-pos"></span>
+              <span class="skeleton-img-small"></span>
+              <span class="skeleton-name-line"></span>
+              <span class="skeleton-bar-line"></span>
+              <span class="skeleton-val"></span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  } @else {
+    @for (ranking of rankings(); track ranking.key) {
+      <div class="ranking-card">
+        <div class="ranking-header">
+          <i class="bi {{ ranking.icon }} me-2"></i>{{ ranking.label }}
+        </div>
+        <div class="ranking-list">
+          @if (ranking.top.length === 0) {
+            <div class="empty-ranking">
+              <i class="bi bi-inbox"></i>
+              <span>Sin datos disponibles</span>
+            </div>
+          }
+          @for (char of ranking.top; track char.id; let i = $index) {
+            <div class="ranking-row" (click)="selectCharacter.emit(char)">
+              <span class="rank-pos" [class.gold]="i===0" [class.silver]="i===1" [class.bronze]="i===2">
+                {{ i + 1 }}
+              </span>
+              <img [src]="char.images.sm" [alt]="char.name" class="rank-img">
+              <span class="rank-name">{{ char.name }}</span>
+              <div class="rank-bar-wrap">
+                <div class="rank-bar" [style.width.%]="statValue(char, ranking.key)"></div>
+              </div>
+              <span class="rank-val">{{ statValue(char, ranking.key) }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

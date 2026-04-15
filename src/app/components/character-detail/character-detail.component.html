@@ -1,0 +1,182 @@
+<!-- Backdrop -->
+<div class="modal-backdrop-custom" (click)="close.emit()"></div>
+
+<!-- Modal panel -->
+<div class="detail-panel" [class.dc-panel]="isDC">
+
+  <!-- Header -->
+  <div class="detail-header">
+    <div class="detail-img-wrapper">
+      @if (!imgFailed) {
+        <img [src]="character.images.lg" [alt]="character.name" class="detail-img" (error)="onImgError()">
+      } @else {
+        <div class="detail-img-placeholder">
+          <span class="detail-initials">{{ initials(character.name) }}</span>
+        </div>
+      }
+      <div class="detail-img-overlay"></div>
+    </div>
+    <div class="detail-header-info">
+      <div class="d-flex align-items-center gap-2 mb-1">
+        <span class="badge {{ alignmentClass(character.biography.alignment) }}">
+          {{ alignmentLabel(character.biography.alignment) }}
+        </span>
+        <span class="publisher-tag">{{ character.biography.publisher }}</span>
+      </div>
+      <h2 class="detail-name">{{ character.name }}</h2>
+      @if (!isUnknown(character.biography.fullName)) {
+        <p class="detail-realname">{{ character.biography.fullName }}</p>
+      }
+    </div>
+    <div class="detail-actions">
+      <button class="btn-favorite" [class.active]="favSvc.isFavorite(character.id)"
+              (click)="favSvc.toggle(character)" [title]="favSvc.isFavorite(character.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'">
+        <i class="bi" [class.bi-heart-fill]="favSvc.isFavorite(character.id)" [class.bi-heart]="!favSvc.isFavorite(character.id)"></i>
+      </button>
+      <button class="btn-close-detail" (click)="close.emit()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="detail-body">
+
+    <!-- Powerstats -->
+    <div class="detail-section">
+      <h6 class="section-title"><i class="bi bi-bar-chart-fill me-2"></i>Estadísticas de poder</h6>
+      <div class="stats-grid">
+        @for (stat of stats; track stat.key) {
+          <div class="stat-item">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="stat-label"><i class="bi {{ stat.icon }} me-1"></i>{{ stat.label }}</span>
+              <span class="stat-value">{{ statValue(stat.key) }}</span>
+            </div>
+            <div class="progress stat-bar">
+              <div
+                class="progress-bar {{ statColor(statValue(stat.key)) }}"
+                role="progressbar"
+                [style.width.%]="statValue(stat.key)"
+                [attr.aria-valuenow]="statValue(stat.key)"
+                aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Biografía -->
+    <div class="detail-section">
+      <h6 class="section-title"><i class="bi bi-person-lines-fill me-2"></i>Biografía</h6>
+      <div class="info-grid">
+        @if (!isUnknown(character.biography.firstAppearance)) {
+          <div class="info-item info-item-full">
+            <span class="info-label">Primera aparición</span>
+            <span class="info-value">{{ character.biography.firstAppearance }}</span>
+          </div>
+        }
+        @if (!isUnknown(character.biography.placeOfBirth)) {
+          <div class="info-item">
+            <span class="info-label">Lugar de nacimiento</span>
+            <span class="info-value">{{ character.biography.placeOfBirth }}</span>
+          </div>
+        }
+        @if (!isUnknown(character.biography.alterEgos)) {
+          <div class="info-item">
+            <span class="info-label">Alter egos</span>
+            <span class="info-value">{{ character.biography.alterEgos }}</span>
+          </div>
+        }
+        @if (character.biography.aliases && character.biography.aliases.length > 0 && !isUnknown(character.biography.aliases)) {
+          <div class="info-item info-item-full">
+            <span class="info-label">Alias</span>
+            <span class="info-value">{{ aliases }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Apariencia -->
+    <div class="detail-section">
+      <h6 class="section-title"><i class="bi bi-person-bounding-box me-2"></i>Apariencia</h6>
+      <div class="info-grid">
+        @if (!isUnknown(character.appearance.race)) {
+          <div class="info-item">
+            <span class="info-label">Raza</span>
+            <span class="info-value">{{ character.appearance.race }}</span>
+          </div>
+        }
+        <div class="info-item">
+          <span class="info-label">Género</span>
+          <span class="info-value">{{ character.appearance.gender }}</span>
+        </div>
+        @if (!isUnknown(character.appearance.height)) {
+          <div class="info-item">
+            <span class="info-label">Altura</span>
+            <span class="info-value">{{ character.appearance.height[1] }}</span>
+          </div>
+        }
+        @if (!isUnknown(character.appearance.weight)) {
+          <div class="info-item">
+            <span class="info-label">Peso</span>
+            <span class="info-value">{{ character.appearance.weight[1] }}</span>
+          </div>
+        }
+        @if (!isUnknown(character.appearance.eyeColor)) {
+          <div class="info-item">
+            <span class="info-label">Ojos</span>
+            <span class="info-value">{{ character.appearance.eyeColor }}</span>
+          </div>
+        }
+        @if (!isUnknown(character.appearance.hairColor)) {
+          <div class="info-item">
+            <span class="info-label">Cabello</span>
+            <span class="info-value">{{ character.appearance.hairColor }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Trabajo -->
+    @if (!isUnknown(character.work.occupation) || !isUnknown(character.work.base)) {
+      <div class="detail-section">
+        <h6 class="section-title"><i class="bi bi-briefcase-fill me-2"></i>Trabajo</h6>
+        <div class="info-grid">
+          @if (!isUnknown(character.work.occupation)) {
+            <div class="info-item info-item-full">
+              <span class="info-label">Ocupación</span>
+              <span class="info-value">{{ character.work.occupation }}</span>
+            </div>
+          }
+          @if (!isUnknown(character.work.base)) {
+            <div class="info-item">
+              <span class="info-label">Base</span>
+              <span class="info-value">{{ character.work.base }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Conexiones -->
+    @if (!isUnknown(character.connections.groupAffiliation)) {
+      <div class="detail-section">
+        <h6 class="section-title"><i class="bi bi-people-fill me-2"></i>Conexiones</h6>
+        <div class="info-grid">
+          <div class="info-item info-item-full">
+            <span class="info-label">Afiliación</span>
+            <span class="info-value">{{ character.connections.groupAffiliation }}</span>
+          </div>
+          @if (!isUnknown(character.connections.relatives)) {
+            <div class="info-item info-item-full">
+              <span class="info-label">Familiares</span>
+              <span class="info-value">{{ character.connections.relatives }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</div>
