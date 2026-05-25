@@ -6,7 +6,7 @@ Buscador interactivo de superhéroes Marvel y DC con Angular 17, Signals y carac
 
 - **Búsqueda multi-publisher**: Marvel Comics y DC Comics
 - **5 tabs navegables**: Buscar, Comparar, Rankings, Explorar, Favoritos
-- **Comparador de héroes**: Compara estadísticas lado a lado con debounce y debounce
+- **Comparador de héroes**: Compara estadísticas lado a lado con debounce
 - **Top 5 rankings**: Por estadística (inteligencia, fuerza, velocidad, etc.)
 - **Explorar & filtrar**: Alineación, ordenamiento, paginación con scroll-to-top
 - **Favoritos persistentes**: localStorage con Angular Signals
