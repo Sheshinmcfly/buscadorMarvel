@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnChanges, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+
 import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
 import { STATS, statVal } from '../../utils/hero-utils';
@@ -12,11 +12,11 @@ interface StatRanking {
 }
 
 @Component({
-  selector: 'app-top-rankings',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './top-rankings.component.html',
-  styleUrl: './top-rankings.component.css'
+    selector: 'app-top-rankings',
+    imports: [],
+    templateUrl: './top-rankings.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './top-rankings.component.css'
 })
 export class TopRankingsComponent implements OnChanges {
   @Input() publisher: Publisher = 'Marvel Comics';

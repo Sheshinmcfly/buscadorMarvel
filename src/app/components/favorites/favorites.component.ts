@@ -1,15 +1,15 @@
-import { Component, inject, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+
 import { FavoritesService } from '../../services/favorites.service';
 import { Character } from '../../models/character';
 import { alignmentClass, alignmentLabel, initials } from '../../utils/hero-utils';
 
 @Component({
-  selector: 'app-favorites',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './favorites.component.html',
-  styleUrl: './favorites.component.css'
+    selector: 'app-favorites',
+    imports: [],
+    templateUrl: './favorites.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './favorites.component.css'
 })
 export class FavoritesComponent {
   favSvc = inject(FavoritesService);

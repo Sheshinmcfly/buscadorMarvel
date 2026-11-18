@@ -1,16 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener, inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+
+
 import { Character } from '../../models/character';
 import { FavoritesService } from '../../services/favorites.service';
 import { STATS, statVal, alignmentLabel, alignmentClass, initials } from '../../utils/hero-utils';
 
 @Component({
-  selector: 'app-character-detail',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './character-detail.component.html',
-  styleUrl: './character-detail.component.css'
+    selector: 'app-character-detail',
+    imports: [],
+    templateUrl: './character-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './character-detail.component.css'
 })
 export class CharacterDetailComponent implements OnInit, OnDestroy {
   @Input() character!: Character;

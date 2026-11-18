@@ -1,5 +1,5 @@
-import { Component, signal, computed, effect, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, signal, computed, effect, inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+
 import { HeroBackgroundComponent } from './components/hero-background/hero-background.component';
 import { SearchComponent } from './components/search/search.component';
 import { CharacterListComponent } from './components/character-list/character-list.component';
@@ -15,15 +15,15 @@ import { Character, Theme, Publisher } from './models/character';
 export type AppTab = 'search' | 'compare' | 'rankings' | 'explore' | 'favorites';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    HeroBackgroundComponent, SearchComponent, CharacterListComponent,
-    CharacterDetailComponent, ComparatorComponent, TopRankingsComponent,
-    ExploreComponent, RandomHeroComponent, FavoritesComponent
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [
+        HeroBackgroundComponent, SearchComponent, CharacterListComponent,
+        CharacterDetailComponent, ComparatorComponent, TopRankingsComponent,
+        ExploreComponent, RandomHeroComponent, FavoritesComponent
+    ],
+    templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
   private doc = inject(DOCUMENT);

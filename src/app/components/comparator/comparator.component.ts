@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, inject, signal, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, inject, signal, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
@@ -8,11 +8,11 @@ import { Character, Publisher } from '../../models/character';
 import { STATS, statVal } from '../../utils/hero-utils';
 
 @Component({
-  selector: 'app-comparator',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './comparator.component.html',
-  styleUrl: './comparator.component.css'
+    selector: 'app-comparator',
+    imports: [FormsModule],
+    templateUrl: './comparator.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './comparator.component.css'
 })
 export class ComparatorComponent implements OnInit, OnDestroy {
   @Input() publisher: Publisher = 'Marvel Comics';

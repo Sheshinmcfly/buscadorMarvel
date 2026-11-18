@@ -1,15 +1,15 @@
-import { Component, Input, Output, EventEmitter, inject, signal, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, signal, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
 
 @Component({
-  selector: 'app-search',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.css'
+    selector: 'app-search',
+    imports: [ReactiveFormsModule],
+    templateUrl: './search.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './search.component.css'
 })
 export class SearchComponent implements OnChanges {
   @Input() publisher: Publisher = 'Marvel Comics';

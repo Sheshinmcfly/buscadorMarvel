@@ -34,7 +34,8 @@ function matchesPublisher(char: Character, publisher: Publisher): boolean {
 @Injectable({ providedIn: 'root' })
 export class HeroService {
   private readonly http = inject(HttpClient);
-  private readonly allUrl = 'https://akabab.github.io/superhero-api/api/all.json';
+  // Copia local del dataset (scripts/build-data.mjs) para no depender de un servidor externo.
+  private readonly allUrl = 'assets/data/heroes.json';
 
   private all$: Observable<Character[]> = this.http.get<Character[]>(this.allUrl).pipe(
     shareReplay(1)

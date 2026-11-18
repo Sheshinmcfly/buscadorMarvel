@@ -1,6 +1,7 @@
 import {
   Component, Input, OnChanges, OnDestroy, AfterViewInit,
-  ViewChild, ElementRef, SimpleChanges, NgZone
+  ViewChild, ElementRef, SimpleChanges, NgZone,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 interface Particle {
@@ -31,11 +32,11 @@ interface Bolt {
 }
 
 @Component({
-  selector: 'app-hero-background',
-  standalone: true,
-  imports: [],
-  templateUrl: './hero-background.component.html',
-  styleUrl: './hero-background.component.css'
+    selector: 'app-hero-background',
+    imports: [],
+    templateUrl: './hero-background.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './hero-background.component.css'
 })
 export class HeroBackgroundComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() isDC = false;

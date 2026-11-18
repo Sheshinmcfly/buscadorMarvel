@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnChanges, signal, computed, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { Character } from '../../models/character';
 import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component';
@@ -9,11 +9,11 @@ type AlignmentFilter = 'all' | 'good' | 'bad' | 'neutral';
 type SortKey = 'name' | 'intelligence' | 'strength' | 'speed' | 'durability' | 'power' | 'combat';
 
 @Component({
-  selector: 'app-character-list',
-  standalone: true,
-  imports: [CommonModule, FormsModule, SkeletonCardComponent],
-  templateUrl: './character-list.component.html',
-  styleUrl: './character-list.component.css'
+    selector: 'app-character-list',
+    imports: [FormsModule, SkeletonCardComponent],
+    templateUrl: './character-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './character-list.component.css'
 })
 export class CharacterListComponent implements OnChanges {
   @Input() characters: Character[] = [];

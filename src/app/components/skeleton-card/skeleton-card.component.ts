@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'app-skeleton-card',
-  standalone: true,
-  imports: [],
-  templateUrl: './skeleton-card.component.html',
-  styleUrl: './skeleton-card.component.css'
+    selector: 'app-skeleton-card',
+    imports: [],
+    templateUrl: './skeleton-card.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './skeleton-card.component.css'
 })
 export class SkeletonCardComponent {
 

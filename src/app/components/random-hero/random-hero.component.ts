@@ -1,13 +1,13 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, ChangeDetectionStrategy } from '@angular/core';
 import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
 
 @Component({
-  selector: 'app-random-hero',
-  standalone: true,
-  imports: [],
-  templateUrl: './random-hero.component.html',
-  styleUrl: './random-hero.component.css'
+    selector: 'app-random-hero',
+    imports: [],
+    templateUrl: './random-hero.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './random-hero.component.css'
 })
 export class RandomHeroComponent {
   @Input() publisher: Publisher = 'Marvel Comics';

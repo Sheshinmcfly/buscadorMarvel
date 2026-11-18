@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges, inject, signal, computed } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnChanges, inject, signal, computed, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
@@ -10,11 +10,11 @@ type AlignmentFilter = 'all' | 'good' | 'bad' | 'neutral';
 type SortKey = 'name' | 'intelligence' | 'strength' | 'speed' | 'durability' | 'power' | 'combat';
 
 @Component({
-  selector: 'app-explore',
-  standalone: true,
-  imports: [CommonModule, FormsModule, SkeletonCardComponent],
-  templateUrl: './explore.component.html',
-  styleUrl: './explore.component.css'
+    selector: 'app-explore',
+    imports: [FormsModule, SkeletonCardComponent],
+    templateUrl: './explore.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    styleUrl: './explore.component.css'
 })
 export class ExploreComponent implements OnChanges {
   @Input() publisher: Publisher = 'Marvel Comics';
