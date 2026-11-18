@@ -2,7 +2,7 @@
 
 Buscador interactivo de más de 400 héroes y villanos de **Marvel** y **DC**, hecho con **Angular 22** (zoneless + Signals). Permite buscar, comparar, rankear y explorar personajes con sus estadísticas de poder, biografía y apariencia, guardar favoritos y cambiar entre ambos universos.
 
-**Demo en vivo:** https://lemon-ground-03c084a0f.3.azurestaticapps.net
+**Aplicación en línea:** https://lemon-ground-03c084a0f.3.azurestaticapps.net
 
 ![Inicio](docs/screenshots/01-inicio.jpg)
 
