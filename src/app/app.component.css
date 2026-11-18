@@ -1,1 +1,10 @@
 /* AppComponent no necesita estilos propios — todo está en styles.css */
+
+footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: var(--accent);
+}
