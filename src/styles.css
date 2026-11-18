@@ -127,7 +127,8 @@ footer {
 }
 .nav-btn-custom:hover { color: rgba(255,255,255,0.85); }
 .nav-btn-custom.active {
-  color: var(--accent);
+  /* El acento puro no alcanza contraste 4.5:1 sobre el fondo oscuro; el texto usa una variante más clara. */
+  color: color-mix(in srgb, var(--accent) 75%, #fff);
   border-bottom-color: var(--accent);
 }
 
