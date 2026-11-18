@@ -61,6 +61,17 @@ describe('TopRankingsComponent', () => {
         component.rankings().forEach(r => expect(r.top.length).toBeLessThanOrEqual(5));
     });
 
+    it('desempata por el total de estadísticas cuando el valor es igual', () => {
+        const tied = [
+            mockCharacter({ id: 1, name: 'Aaa débil', powerstats: { intelligence: 100, strength: 10, speed: 10, durability: 10, power: 10, combat: 10 } }),
+            mockCharacter({ id: 2, name: 'Zzz fuerte', powerstats: { intelligence: 100, strength: 90, speed: 90, durability: 90, power: 90, combat: 90 } }),
+        ];
+        heroSvc.getByPublisher.mockReturnValue(of(tied));
+        component.ngOnChanges();
+        const intRanking = component.rankings().find(r => r.key === 'intelligence')!;
+        expect(intRanking.top.map(c => c.name)).toEqual(['Zzz fuerte', 'Aaa débil']);
+    });
+
     it('should emit selectCharacter', () => {
         vi.spyOn(component.selectCharacter, 'emit').mockReturnValue(undefined);
         component.selectCharacter.emit(chars[0]);

@@ -131,6 +131,15 @@ footer {
   border-bottom-color: var(--accent);
 }
 
+/* En pantallas angostas las tabs muestran solo el ícono para caber en una fila. */
+@media (max-width: 575.98px) {
+  .nav-tabs-custom { justify-content: space-between; gap: 0; }
+  .nav-item-custom { flex: 1; }
+  .nav-btn-custom { width: 100%; padding: 0.85rem 0.25rem; font-size: 1.15rem; }
+  .nav-btn-custom .tab-label { display: none; }
+  .nav-btn-custom .bi { margin-right: 0 !important; }
+}
+
 .tab-content-area { min-height: 60vh; }
 
 @keyframes tabFadeIn {

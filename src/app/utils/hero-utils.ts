@@ -19,6 +19,10 @@ export function statVal(char: Character, key: string): number {
   return (char.powerstats as unknown as Record<string, number>)[key] ?? 0;
 }
 
+export function totalPower(char: Character): number {
+  return STATS.reduce((sum, s) => sum + statVal(char, s.key), 0);
+}
+
 const ALIGNMENT_LABELS: Record<string, string> = {
   good:    'Héroe',
   bad:     'Villano',

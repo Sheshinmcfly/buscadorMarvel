@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, inject, signal, Chan
 
 import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
-import { STATS, statVal } from '../../utils/hero-utils';
+import { STATS, statVal, totalPower } from '../../utils/hero-utils';
 
 interface StatRanking {
   key: string;
@@ -39,7 +39,8 @@ export class TopRankingsComponent implements OnChanges {
         ...stat,
         top: [...chars]
           .filter(c => statVal(c, stat.key) > 0)
-          .sort((a, b) => statVal(b, stat.key) - statVal(a, stat.key))
+          // Muchos personajes empatan en 100: se desempata por el total de estadísticas.
+          .sort((a, b) => statVal(b, stat.key) - statVal(a, stat.key) || totalPower(b) - totalPower(a))
           .slice(0, 5)
       })));
       this.loading.set(false);

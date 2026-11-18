@@ -4,6 +4,7 @@ import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener
 import { Character } from '../../models/character';
 import { FavoritesService } from '../../services/favorites.service';
 import { STATS, statVal, alignmentLabel, alignmentClass, initials } from '../../utils/hero-utils';
+import { translateEyes, translateGender, translateHair, translateRace } from '../../utils/translate';
 
 @Component({
     selector: 'app-character-detail',
@@ -24,6 +25,10 @@ export class CharacterDetailComponent implements OnInit, OnDestroy {
   alignmentLabel = alignmentLabel;
   alignmentClass = alignmentClass;
   initials = initials;
+  translateGender = translateGender;
+  translateRace = translateRace;
+  translateEyes = translateEyes;
+  translateHair = translateHair;
 
   @ViewChild('panel', { static: true }) private panel!: ElementRef<HTMLElement>;
   private opener: HTMLElement | null = null;
@@ -68,6 +73,6 @@ export class CharacterDetailComponent implements OnInit, OnDestroy {
 
   isUnknown(val: string | string[]): boolean {
     if (Array.isArray(val)) return val.every(v => v === '-' || v.toLowerCase().includes('unknown'));
-    return !val || val === '-' || val.toLowerCase().includes('unknown');
+    return !val || val === '-' || val.toLowerCase().includes('unknown') || val === 'No alter egos found.';
   }
 }

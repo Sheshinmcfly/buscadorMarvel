@@ -1,127 +1,92 @@
-# BuscadorMarvel 🦸‍♂️
+# Buscador de héroes Marvel y DC
 
-Buscador interactivo de superhéroes Marvel y DC con Angular 17, Signals y características avanzadas de UX.
+Buscador interactivo de más de 400 héroes y villanos de **Marvel** y **DC**, hecho con **Angular 22** (zoneless + Signals). Permite buscar, comparar, rankear y explorar personajes con sus estadísticas de poder, biografía y apariencia, guardar favoritos y cambiar entre ambos universos.
 
-## 🚀 Features
+**Demo en vivo:** https://lemon-ground-03c084a0f.3.azurestaticapps.net
 
-- **Búsqueda multi-publisher**: Marvel Comics y DC Comics
-- **5 tabs navegables**: Buscar, Comparar, Rankings, Explorar, Favoritos
-- **Comparador de héroes**: Compara estadísticas lado a lado con debounce
-- **Top 5 rankings**: Por estadística (inteligencia, fuerza, velocidad, etc.)
-- **Explorar & filtrar**: Alineación, ordenamiento, paginación con scroll-to-top
-- **Favoritos persistentes**: localStorage con Angular Signals
-- **Tema dinámico**: Cambia colores (Marvel rojo vs DC azul) en toda la app
-- **Skeleton loaders**: Carga visual mejorada mientras se obtiene data
-- **Detalle interactivo**: Panel modal con Escape key para cerrar
-- **Accesibilidad**: Soporte ARIA, navegación por teclado
+![Inicio](docs/screenshots/01-inicio.jpg)
 
-## 🛠️ Tech Stack
+## Funcionalidades
 
-- **Angular 17** — Standalone components, Signals, computed(), effect()
-- **TypeScript** — Tipado fuerte
-- **Bootstrap 5** — Responsivo y temas CSS variables
-- **RxJS** — debounceTime, switchMap, caching
-- **Akabab SuperHero API** — 700+ héroes con 6 stats cada uno
-- **Karma/Jasmine** — 153 tests, 100% coverage
+| Sección | Qué hace |
+|---------|----------|
+| **Buscar** | Búsqueda por nombre dentro del universo activo, con resultados en tarjetas y botón "Sorpréndeme" para abrir un personaje al azar. |
+| **Detalle** | Panel con las 6 estadísticas de poder, biografía, apariencia, trabajo y conexiones. Se cierra con Escape y devuelve el foco a donde estabas. |
+| **Comparar** | Dos personajes frente a frente, estadística por estadística, con ganador por categoría y ganador general. |
+| **Rankings** | Top 5 por cada estadística; los empates se desempatan por el poder total. |
+| **Explorar** | Catálogo completo con filtro por alineación (héroe, villano, neutral), orden y paginación. |
+| **Favoritos** | Lista persistente en el navegador. |
 
-## 📋 Requisitos previos
+Además:
+- **Tema Marvel/DC** que cambia colores, logos y datos de toda la aplicación.
+- **Links compartibles:** la URL refleja la sección, el universo y el personaje abierto; el botón "atrás" del navegador funciona como se espera. Por ejemplo, [`?tab=rankings&editorial=dc&heroe=70-batman`](https://lemon-ground-03c084a0f.3.azurestaticapps.net/?tab=rankings&editorial=dc&heroe=70-batman) abre los rankings de DC con Batman.
+- **Accesible por teclado:** tarjetas, filas de ranking y comparador se usan con Tab, Enter y Espacio; el detalle atrapa el foco mientras está abierto.
+- **Diseño responsive:** en móvil las secciones se muestran como íconos en una sola fila.
 
-- Node.js 18+
-- npm 9+
+## Capturas
 
-## 🏗️ Instalación
+| Búsqueda | Detalle |
+|---|---|
+| ![Búsqueda](docs/screenshots/02-busqueda.jpg) | ![Detalle](docs/screenshots/03-detalle.jpg) |
+| **Comparar** | **Rankings (DC)** |
+| ![Comparar](docs/screenshots/04-comparar.jpg) | ![Rankings DC](docs/screenshots/05-rankings-dc.jpg) |
+| **Explorar** | **Móvil** |
+| ![Explorar](docs/screenshots/06-explorar.jpg) | <img src="docs/screenshots/07-movil.jpg" alt="Vista móvil" width="300"> |
+
+## Stack
+
+- **Angular 22**: componentes standalone, aplicación *zoneless*, Signals (`signal`, `computed`, `effect`), control flow (`@if`, `@for`) y formularios reactivos.
+- **TypeScript 6** y **RxJS** (debounce y `switchMap` en el comparador, caché con `shareReplay`).
+- **Bootstrap 5.3** + **Bootstrap Icons**, con variables CSS para el tema de cada universo.
+- **Vitest** para los tests unitarios (166 tests).
+
+## Decisiones técnicas
+
+**Modernización de Angular 17 a 22.** El proyecto se actualizó versión por versión con las migraciones oficiales de Angular, se quitó zone.js (la detección de cambios funciona solo con Signals) y los tests pasaron de Karma/Jasmine a Vitest sin perder ninguno. También se eliminaron dependencias sin uso, como el JavaScript de Bootstrap: la carga inicial bajó de 160 KB a 128 KB transferidos.
+
+**Datos propios.** El dataset (SuperHero API, 563 personajes) se incluye en el repo a partir de una versión fija de la fuente, en lugar de descargarse de un servidor externo en cada visita. `npm run data` lo regenera.
+
+**Datos imperfectos de la fuente.** Unos 40 personajes traen el nombre de un alias en el campo "editorial"; el servicio los asigna al universo correcto. Los valores de categoría (género, raza, colores de ojos y cabello) se traducen al español; los textos libres (ocupación, afiliaciones, parientes) se muestran en inglés, tal como los publica la fuente.
+
+**Estado con Signals.** Cada sección deriva su vista con `computed`; la URL se sincroniza con la History API sin necesidad del router.
+
+**Accesibilidad.** Una directiva `appClickable` da rol de botón, foco y activación por teclado a las tarjetas; el detalle usa `role="dialog"`, fondo `inert` y devuelve el foco al cerrar; las secciones usan el patrón de tabs ARIA.
+
+## Cómo ejecutarlo
+
+Requiere Node.js 22.22.3+, 24.15+ o 26+ (mínimo exigido por Angular CLI 22).
 
 ```bash
-git clone https://github.com/tu-usuario/buscadorMarvel.git
-cd buscadorMarvel
 npm install
+npm start          # servidor de desarrollo en http://localhost:4200
+npm test           # tests unitarios (Vitest)
+npm run build      # build de producción en dist/buscador-marvel/browser
+npm run data       # regenera src/assets/data/heroes.json desde la fuente
 ```
 
-## 🧪 Desarrollo & Testing
+## Despliegue
 
-```bash
-# Servidor dev (puerto 4200)
-ng serve
+Publicado en **Azure Static Web Apps** (plan Free). Cada push ejecuta el pipeline de Azure DevOps definido en `azure-pipelines.yml`: instala dependencias, corre los tests y hace el build; si el push es a `main` y todo pasa, despliega la nueva versión automáticamente. Los headers de seguridad (CSP incluida) y la caché se configuran en `public/staticwebapp.config.json`.
 
-# Tests con cobertura
-ng test --code-coverage
+## Estructura
 
-# Build producción
-ng build --configuration production
+```
+scripts/build-data.mjs          Genera el dataset local
+src/assets/data/heroes.json     Dataset de personajes
+src/app/
+  components/                   Una carpeta por componente (search, character-detail, comparator,
+                                top-rankings, explore, favorites, ...)
+  directives/                   Directiva de accesibilidad por teclado
+  services/                     Datos de personajes y favoritos
+  utils/                        Estadísticas, traducciones y sincronización con la URL
+public/                         Favicon, 404, robots, sitemap y configuración de Static Web Apps
 ```
 
-## 📊 Arquitectura
+## Fuentes y aviso
 
-### Componentes
-- `AppComponent` — contenedor principal, manejo de temas, rutas de tabs
-- `SearchComponent` — input de búsqueda con validación
-- `CharacterListComponent` — grid de resultados con filtros y ordenamiento
-- `ComparatorComponent` — comparación lado a lado (debounced)
-- `TopRankingsComponent` — top 5 por stat con skeleton loader
-- `ExploreComponent` — browse con paginación y filtros
-- `FavoritesComponent` — listado de favoritos guardados
-- `CharacterDetailComponent` — modal de detalles con Escape key
+- Datos: [SuperHero API](https://github.com/akabab/superhero-api) (licencia MIT); imágenes servidas por jsDelivr.
+- Proyecto de portafolio sin fines de lucro, **no oficial y sin afiliación con Marvel ni DC**. Los nombres, personajes y logos pertenecen a sus respectivos dueños.
 
-### Servicios
-- `HeroService` — API calls, caching por publisher, búsqueda
-- `FavoritesService` — signal-based localStorage persistence
+## Historia
 
-### Utilidades
-- `hero-utils.ts` — centraliza definiciones de stats, labels, funciones compartidas
-
-## 🎨 Mejoras implementadas
-
-- ✅ Utilidades compartidas para eliminar duplicación (stats, alignmentLabel, alignmentClass)
-- ✅ Debounce (300ms) + switchMap en comparador → evita race conditions
-- ✅ Botón X para limpiar cada lado del comparador independientemente
-- ✅ Botón limpiar búsqueda con estado visual
-- ✅ Skeleton loaders en top-rankings durante carga
-- ✅ Scroll suave al top al cambiar página/filtro
-- ✅ Escape key cierra panel de detalle
-- ✅ 100% test coverage con 153 tests
-
-## 🐛 Notas técnicas
-
-### API Akabab
-- ~700 héroes con 6 stats cada uno (0-100)
-- Publisher corrupto en ~50 caracteres (aliases como publisher)
-- Sets explícitos `MARVEL_PUBLISHERS` / `DC_PUBLISHERS` para workaround
-
-### Gestión de estado
-- Signals para `query`, `results`, `heroes`, `favorites`, `page`
-- `computed()` para `filtered`, `paged`, `displayed`
-- `effect()` en AppComponent para sync CSS variables ↔ DOM
-
-### Performance
-- RxJS `switchMap` previene subscripciones múltiples
-- `trackBy` en `*ngFor` para listas grandes
-- Lazy skeleton loaders en lugar de spinners
-- Caching de HTTP via `shareReplay`
-
-## 📱 Responsive
-
-- Mobile (375px) → 2 columnas
-- Tablet (768px) → 3 columnas
-- Desktop (1280px) → 4 columnas
-
-## 🎯 Próximos pasos (opcional)
-
-- [ ] Agregar filtro por origen (origin.name)
-- [ ] Exportar comparación como imagen
-- [ ] Historial de búsquedas
-- [ ] Dark/light mode toggle manual (además del automático)
-- [ ] Integración SSR con Angular Universal
-
-## 📄 Licencia
-
-MIT
-
-## 👤 Autor
-
-@usuario
-
----
-
-**Última actualización**: April 2026  
-**Angular**: 17.3.7  
-**Test Coverage**: 100%
+La primera versión (2021) era un buscador en JavaScript sin framework. En 2026 se reescribió en Angular 17 con Signals, y luego se modernizó a Angular 22 con datos propios, accesibilidad completa, links compartibles y despliegue continuo en Azure.

@@ -1,0 +1,61 @@
+# CI en cada push y pull request; CD a Azure Static Web Apps solo desde main.
+trigger:
+  branches:
+    include: ['*']
+
+pr:
+  branches:
+    include: ['main']
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: CI
+    displayName: Tests y build
+    jobs:
+      - job: build
+        displayName: Tests y build de producción
+        steps:
+          - task: NodeTool@0
+            displayName: Node 24
+            inputs:
+              versionSpec: '24.x'
+
+          - script: npm ci
+            displayName: Instalar dependencias
+
+          - script: npx ng test --watch=false
+            displayName: Tests unitarios
+
+          - script: npx ng build
+            displayName: Build de producción
+
+          - publish: dist/buscador-marvel/browser
+            artifact: sitio
+            displayName: Publicar artefacto
+
+  - stage: CD
+    displayName: Despliegue
+    dependsOn: CI
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: deploy
+        displayName: Azure Static Web Apps
+        steps:
+          - checkout: none
+
+          - download: current
+            artifact: sitio
+            displayName: Descargar artefacto
+
+          - task: AzureStaticWebApp@0
+            displayName: Desplegar
+            inputs:
+              workingDirectory: $(Pipeline.Workspace)
+              app_location: sitio
+              output_location: ''
+              skip_app_build: true
+              skip_api_build: true
+              # Variable secreta definida en el pipeline, no en el repo.
+              azure_static_web_apps_api_token: $(SWA_DEPLOYMENT_TOKEN)

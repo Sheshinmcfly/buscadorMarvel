@@ -106,13 +106,15 @@
         @if (!isUnknown(character.appearance.race)) {
           <div class="info-item">
             <span class="info-label">Raza</span>
-            <span class="info-value">{{ character.appearance.race }}</span>
+            <span class="info-value">{{ translateRace(character.appearance.race) }}</span>
           </div>
         }
-        <div class="info-item">
-          <span class="info-label">Género</span>
-          <span class="info-value">{{ character.appearance.gender }}</span>
-        </div>
+        @if (!isUnknown(character.appearance.gender)) {
+          <div class="info-item">
+            <span class="info-label">Género</span>
+            <span class="info-value">{{ translateGender(character.appearance.gender) }}</span>
+          </div>
+        }
         @if (!isUnknown(character.appearance.height)) {
           <div class="info-item">
             <span class="info-label">Altura</span>
@@ -128,13 +130,13 @@
         @if (!isUnknown(character.appearance.eyeColor)) {
           <div class="info-item">
             <span class="info-label">Ojos</span>
-            <span class="info-value">{{ character.appearance.eyeColor }}</span>
+            <span class="info-value">{{ translateEyes(character.appearance.eyeColor) }}</span>
           </div>
         }
         @if (!isUnknown(character.appearance.hairColor)) {
           <div class="info-item">
             <span class="info-label">Cabello</span>
-            <span class="info-value">{{ character.appearance.hairColor }}</span>
+            <span class="info-value">{{ translateHair(character.appearance.hairColor) }}</span>
           </div>
         }
       </div>

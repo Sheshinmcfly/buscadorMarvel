@@ -41,8 +41,9 @@
             <button type="button" class="nav-btn-custom" role="tab"
                     [class.active]="activeTab() === tab.id"
                     [attr.aria-selected]="activeTab() === tab.id"
+                    [attr.aria-label]="tab.label" [title]="tab.label"
                     (click)="setTab(tab.id)">
-              <i class="bi {{ tab.icon }} me-1" aria-hidden="true"></i>{{ tab.label }}
+              <i class="bi {{ tab.icon }} me-1" aria-hidden="true"></i><span class="tab-label">{{ tab.label }}</span>
               @if (tab.id === 'favorites' && favSvc.count() > 0) {
                 <span class="fav-badge" [attr.aria-label]="favSvc.count() + ' favoritos'">{{ favSvc.count() }}</span>
               }
