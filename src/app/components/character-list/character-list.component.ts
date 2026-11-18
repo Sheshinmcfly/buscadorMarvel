@@ -8,9 +8,11 @@ import { alignmentClass, alignmentLabel, initials, statVal } from '../../utils/h
 type AlignmentFilter = 'all' | 'good' | 'bad' | 'neutral';
 type SortKey = 'name' | 'intelligence' | 'strength' | 'speed' | 'durability' | 'power' | 'combat';
 
+import { ClickableDirective } from '../../directives/clickable.directive';
+
 @Component({
     selector: 'app-character-list',
-    imports: [FormsModule, SkeletonCardComponent],
+    imports: [FormsModule, SkeletonCardComponent, ClickableDirective],
     templateUrl: './character-list.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './character-list.component.css'

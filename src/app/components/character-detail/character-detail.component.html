@@ -2,7 +2,7 @@
 <div class="modal-backdrop-custom" (click)="close.emit()"></div>
 
 <!-- Modal panel -->
-<div class="detail-panel" [class.dc-panel]="isDC">
+<div #panel class="detail-panel" [class.dc-panel]="isDC" role="dialog" aria-modal="true" aria-labelledby="detail-name" tabindex="-1">
 
   <!-- Header -->
   <div class="detail-header">
@@ -23,18 +23,20 @@
         </span>
         <span class="publisher-tag">{{ character.biography.publisher }}</span>
       </div>
-      <h2 class="detail-name">{{ character.name }}</h2>
+      <h2 class="detail-name" id="detail-name">{{ character.name }}</h2>
       @if (!isUnknown(character.biography.fullName)) {
         <p class="detail-realname">{{ character.biography.fullName }}</p>
       }
     </div>
     <div class="detail-actions">
-      <button class="btn-favorite" [class.active]="favSvc.isFavorite(character.id)"
+      <button type="button" class="btn-favorite" [class.active]="favSvc.isFavorite(character.id)"
+              [attr.aria-pressed]="favSvc.isFavorite(character.id)"
+              [attr.aria-label]="favSvc.isFavorite(character.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'"
               (click)="favSvc.toggle(character)" [title]="favSvc.isFavorite(character.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'">
-        <i class="bi" [class.bi-heart-fill]="favSvc.isFavorite(character.id)" [class.bi-heart]="!favSvc.isFavorite(character.id)"></i>
+        <i class="bi" aria-hidden="true" [class.bi-heart-fill]="favSvc.isFavorite(character.id)" [class.bi-heart]="!favSvc.isFavorite(character.id)"></i>
       </button>
-      <button class="btn-close-detail" (click)="close.emit()">
-        <i class="bi bi-x-lg"></i>
+      <button type="button" class="btn-close-detail" aria-label="Cerrar" (click)="close.emit()">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
     </div>
   </div>

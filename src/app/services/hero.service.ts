@@ -57,6 +57,10 @@ export class HeroService {
     );
   }
 
+  getBySlug(slug: string): Observable<Character | undefined> {
+    return this.all$.pipe(map(chars => chars.find(c => c.slug === slug)));
+  }
+
   getRandom(publisher: Publisher): Observable<Character> {
     return this.getByPublisher(publisher).pipe(
       map(chars => chars[Math.floor(Math.random() * chars.length)])

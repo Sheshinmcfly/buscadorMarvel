@@ -30,7 +30,7 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
     @for (char of displayed(); track trackById($index, char)) {
       <div class="col">
-        <div class="hero-card" (click)="selectCharacter.emit(char)" [class.dc-card]="isDC">
+        <div class="hero-card" appClickable [attr.aria-label]="'Ver detalle de ' + char.name" (click)="selectCharacter.emit(char)" [class.dc-card]="isDC">
           <div class="hero-img-wrapper">
             <img [src]="char.images.md" [alt]="char.name" class="hero-img" (error)="onImgError($event)">
             <div class="img-placeholder">

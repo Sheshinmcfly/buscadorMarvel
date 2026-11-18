@@ -11,9 +11,10 @@
   <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
     @for (char of favSvc.all(); track char.id) {
       <div class="col">
-        <div class="fav-card" (click)="selectCharacter.emit(char)">
-          <button class="btn-remove" (click)="$event.stopPropagation(); favSvc.toggle(char)" title="Quitar de favoritos">
-            <i class="bi bi-heart-fill"></i>
+        <div class="fav-card">
+          <button type="button" class="btn-remove" (click)="favSvc.toggle(char)" title="Quitar de favoritos"
+                  [attr.aria-label]="'Quitar ' + char.name + ' de favoritos'">
+            <i class="bi bi-heart-fill" aria-hidden="true"></i>
           </button>
           <div class="fav-img-wrapper">
             <img [src]="char.images.md" [alt]="char.name" class="fav-img" (error)="onImgError($event)">
@@ -23,7 +24,10 @@
             <div class="fav-overlay"><i class="bi bi-eye-fill fs-4"></i></div>
           </div>
           <div class="fav-info px-2 py-2">
-            <p class="fav-name mb-1">{{ char.name }}</p>
+            <p class="fav-name mb-1">
+              <button type="button" class="card-link" [attr.aria-label]="'Ver detalle de ' + char.name"
+                      (click)="selectCharacter.emit(char)">{{ char.name }}</button>
+            </p>
             <span class="badge {{ alignmentClass(char.biography.alignment) }}" style="font-size:0.7rem">
               {{ alignmentLabel(char.biography.alignment) }}
             </span>

@@ -7,9 +7,11 @@ import { HeroService } from '../../services/hero.service';
 import { Character, Publisher } from '../../models/character';
 import { STATS, statVal } from '../../utils/hero-utils';
 
+import { ClickableDirective } from '../../directives/clickable.directive';
+
 @Component({
     selector: 'app-comparator',
-    imports: [FormsModule],
+    imports: [FormsModule, ClickableDirective],
     templateUrl: './comparator.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './comparator.component.css'

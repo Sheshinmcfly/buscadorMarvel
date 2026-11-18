@@ -18,7 +18,7 @@
       @if (resultsA().length > 0) {
         <div class="dropdown-results">
           @for (c of resultsA(); track c.id) {
-            <div class="dropdown-item-custom" (click)="selectA(c)">
+            <div class="dropdown-item-custom" appClickable [attr.aria-label]="'Elegir ' + c.name" (click)="selectA(c)">
               <img [src]="c.images.sm" [alt]="c.name" class="drop-img">
               <span>{{ c.name }}</span>
             </div>
@@ -46,7 +46,7 @@
       @if (resultsB().length > 0) {
         <div class="dropdown-results">
           @for (c of resultsB(); track c.id) {
-            <div class="dropdown-item-custom" (click)="selectB(c)">
+            <div class="dropdown-item-custom" appClickable [attr.aria-label]="'Elegir ' + c.name" (click)="selectB(c)">
               <img [src]="c.images.sm" [alt]="c.name" class="drop-img">
               <span>{{ c.name }}</span>
             </div>
@@ -75,7 +75,7 @@
   <div class="compare-layout">
 
     <!-- Hero A -->
-    <div class="compare-hero" [class.is-winner]="overallWinner() === 'A'" (click)="selectCharacter.emit(heroA()!)">
+    <div class="compare-hero" [class.is-winner]="overallWinner() === 'A'" appClickable [attr.aria-label]="'Ver detalle de ' + heroA()!.name" (click)="selectCharacter.emit(heroA()!)">
       <img [src]="heroA()!.images.md" [alt]="heroA()!.name" class="compare-img">
       <p class="compare-name">{{ heroA()!.name }}</p>
     </div>
@@ -102,7 +102,7 @@
     </div>
 
     <!-- Hero B -->
-    <div class="compare-hero" [class.is-winner]="overallWinner() === 'B'" (click)="selectCharacter.emit(heroB()!)">
+    <div class="compare-hero" [class.is-winner]="overallWinner() === 'B'" appClickable [attr.aria-label]="'Ver detalle de ' + heroB()!.name" (click)="selectCharacter.emit(heroB()!)">
       <img [src]="heroB()!.images.md" [alt]="heroB()!.name" class="compare-img">
       <p class="compare-name">{{ heroB()!.name }}</p>
     </div>

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener, inject, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener, inject, DOCUMENT, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 
 
 import { Character } from '../../models/character';
@@ -25,14 +25,21 @@ export class CharacterDetailComponent implements OnInit, OnDestroy {
   alignmentClass = alignmentClass;
   initials = initials;
 
+  @ViewChild('panel', { static: true }) private panel!: ElementRef<HTMLElement>;
+  private opener: HTMLElement | null = null;
+
   ngOnInit(): void {
+    this.opener = this.doc.activeElement as HTMLElement | null;
     this.doc.body.style.overflow = 'hidden';
     this.doc.documentElement.style.overflow = 'hidden';
+    this.panel.nativeElement.focus();
   }
 
   ngOnDestroy(): void {
     this.doc.body.style.overflow = '';
     this.doc.documentElement.style.overflow = '';
+    // Devuelve el foco a quien abrió el detalle (si sigue en la página).
+    if (this.opener?.isConnected) this.opener.focus();
   }
 
   @HostListener('document:keydown.escape')

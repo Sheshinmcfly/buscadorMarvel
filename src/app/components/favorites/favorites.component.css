@@ -19,6 +19,7 @@
 
 .btn-remove {
   position: absolute;
+  z-index: 2;
   top: 0.5rem;
   right: 0.5rem;
   z-index: 10;
@@ -79,4 +80,29 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* El nombre es el botón real; su área de clic se extiende a toda la tarjeta. */
+.card-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.card-link:focus-visible {
+  outline: none;
+}
+
+.fav-card:has(.card-link:focus-visible) {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
 }

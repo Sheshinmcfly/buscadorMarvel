@@ -33,7 +33,7 @@
   }
   @for (char of paged(); track char.id) {
     <div class="col">
-      <div class="hero-card" (click)="selectCharacter.emit(char)">
+      <div class="hero-card" appClickable [attr.aria-label]="'Ver detalle de ' + char.name" (click)="selectCharacter.emit(char)">
         <div class="hero-img-wrapper">
           <img [src]="char.images.md" [alt]="char.name" class="hero-img" (error)="onImgError($event)">
           <div class="img-placeholder">

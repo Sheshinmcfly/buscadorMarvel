@@ -140,4 +140,14 @@ describe('HeroService', () => {
             flushAll();
         });
     });
+
+    describe('getBySlug', () => {
+        it('encuentra el personaje por su slug y devuelve undefined si no existe', () => {
+            const found: (string | undefined)[] = [];
+            service.getBySlug('batman').subscribe(c => found.push(c?.name));
+            service.getBySlug('999-no-existe').subscribe(c => found.push(c?.name));
+            flushAll();
+            expect(found).toEqual(['Batman', undefined]);
+        });
+    });
 });

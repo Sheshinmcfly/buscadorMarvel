@@ -11,9 +11,11 @@ interface StatRanking {
   top: Character[];
 }
 
+import { ClickableDirective } from '../../directives/clickable.directive';
+
 @Component({
     selector: 'app-top-rankings',
-    imports: [],
+    imports: [ClickableDirective],
     templateUrl: './top-rankings.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './top-rankings.component.css'

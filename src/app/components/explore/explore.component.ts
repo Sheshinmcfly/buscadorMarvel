@@ -9,9 +9,11 @@ import { initials, statVal } from '../../utils/hero-utils';
 type AlignmentFilter = 'all' | 'good' | 'bad' | 'neutral';
 type SortKey = 'name' | 'intelligence' | 'strength' | 'speed' | 'durability' | 'power' | 'combat';
 
+import { ClickableDirective } from '../../directives/clickable.directive';
+
 @Component({
     selector: 'app-explore',
-    imports: [FormsModule, SkeletonCardComponent],
+    imports: [FormsModule, SkeletonCardComponent, ClickableDirective],
     templateUrl: './explore.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './explore.component.css'

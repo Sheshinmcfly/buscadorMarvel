@@ -1,25 +1,26 @@
 <div class="app-wrapper" [class.theme-dc]="isDC()">
 
   <!-- Navbar -->
-  <nav class="navbar navbar-dark fixed-top">
+  <nav class="navbar navbar-dark fixed-top" [attr.inert]="selectedCharacter() ? '' : null">
     <div class="container-fluid px-4">
-      <a class="navbar-brand">
+      <span class="navbar-brand">
         <img [src]="isDC() ? 'assets/dc.png' : 'assets/marvel.png'"
              [alt]="isDC() ? 'DC Comics' : 'Marvel Comics'" class="nav-logo" width="100" height="28">
-      </a>
+      </span>
       <div class="d-flex align-items-center gap-2">
-        <img src="assets/marvel.png" alt="Marvel" class="switch-logo" [class.logo-inactive]="isDC()" width="60" height="20">
+        <img src="assets/marvel.png" alt="" aria-hidden="true" class="switch-logo" [class.logo-inactive]="isDC()" width="60" height="20">
         <div class="form-check form-switch mb-0">
           <input class="form-check-input theme-switch" type="checkbox" role="switch"
-                 id="themeSwitch" [checked]="isDC()" (change)="toggleTheme()">
+                 id="themeSwitch" [checked]="isDC()" (change)="toggleTheme()"
+                 aria-label="Universo DC">
         </div>
-        <img src="assets/dc.png" alt="DC" class="switch-logo" [class.logo-inactive]="!isDC()" width="28" height="20">
+        <img src="assets/dc.png" alt="" aria-hidden="true" class="switch-logo" [class.logo-inactive]="!isDC()" width="28" height="20">
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <header class="hero-section text-center text-white">
+  <header class="hero-section text-center text-white" [attr.inert]="selectedCharacter() ? '' : null">
     <app-hero-background [isDC]="isDC()" />
     <div class="hero-content">
       <img [src]="isDC() ? 'assets/dc.png' : 'assets/marvel.png'"
@@ -32,17 +33,18 @@
   </header>
 
   <!-- Tabs -->
-  <div class="tabs-bar">
+  <div class="tabs-bar" [attr.inert]="selectedCharacter() ? '' : null">
     <div class="container">
-      <ul class="nav nav-tabs-custom">
+      <ul class="nav nav-tabs-custom" role="tablist" aria-label="Secciones">
         @for (tab of tabs; track tab.id) {
-          <li class="nav-item-custom">
-            <button class="nav-btn-custom"
+          <li class="nav-item-custom" role="presentation">
+            <button type="button" class="nav-btn-custom" role="tab"
                     [class.active]="activeTab() === tab.id"
+                    [attr.aria-selected]="activeTab() === tab.id"
                     (click)="setTab(tab.id)">
-              <i class="bi {{ tab.icon }} me-1"></i>{{ tab.label }}
+              <i class="bi {{ tab.icon }} me-1" aria-hidden="true"></i>{{ tab.label }}
               @if (tab.id === 'favorites' && favSvc.count() > 0) {
-                <span class="fav-badge">{{ favSvc.count() }}</span>
+                <span class="fav-badge" [attr.aria-label]="favSvc.count() + ' favoritos'">{{ favSvc.count() }}</span>
               }
             </button>
           </li>
@@ -52,7 +54,7 @@
   </div>
 
   <!-- Content -->
-  <div class="tab-content-area">
+  <main class="tab-content-area" [attr.inert]="selectedCharacter() ? '' : null">
 
     <!-- BUSCAR -->
     @if (activeTab() === 'search') {
@@ -101,11 +103,14 @@
       </div>
     }
 
-  </div>
+  </main>
 
-  <footer class="text-center py-3">
-    <img [src]="isDC() ? 'assets/dc.png' : 'assets/marvel.png'" class="footer-logo me-2" width="54" height="18">
-    <small class="opacity-50">&copy; 2026 · Powered by SuperHero API</small>
+  <footer class="text-center py-3" [attr.inert]="selectedCharacter() ? '' : null">
+    <img [src]="isDC() ? 'assets/dc.png' : 'assets/marvel.png'" alt="" aria-hidden="true" class="footer-logo me-2" width="54" height="18">
+    <small class="opacity-75">
+      Proyecto de portafolio sin fines de lucro, no oficial y sin afiliación con Marvel ni DC.
+      Datos: <a href="https://github.com/akabab/superhero-api" target="_blank" rel="noopener">SuperHero API</a>.
+    </small>
   </footer>
 
   @if (selectedCharacter()) {

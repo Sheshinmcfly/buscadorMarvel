@@ -36,7 +36,7 @@
             </div>
           }
           @for (char of ranking.top; track char.id; let i = $index) {
-            <div class="ranking-row" (click)="selectCharacter.emit(char)">
+            <div class="ranking-row" appClickable [attr.aria-label]="'Ver detalle de ' + char.name" (click)="selectCharacter.emit(char)">
               <span class="rank-pos" [class.gold]="i===0" [class.silver]="i===1" [class.bronze]="i===2">
                 {{ i + 1 }}
               </span>
